@@ -1,6 +1,4 @@
-# Uknown Promises
-
-## TL:DR
+# Promises, Promises Everywhere
 
 A utility library that is all about JavaScript Promises!
 

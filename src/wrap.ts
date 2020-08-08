@@ -1,8 +1,7 @@
-import CallbackFunctionType from './Types/CallbackFunction.type';
+type CallbackFunctionType = (...args: any[]) => any;
+type AsyncFunctionType = (...args: any[]) => Promise<any>;
 
-export function wrapWithPromise(
-  cbkFunction: CallbackFunctionType
-): CallbackFunctionType {
+export function wrap(cbkFunction: CallbackFunctionType): AsyncFunctionType {
   return (...args: any[]): Promise<any> => {
     return new Promise((res, rej) => {
       try {
@@ -15,4 +14,4 @@ export function wrapWithPromise(
   };
 }
 
-export default wrapWithPromise;
+export default wrap;

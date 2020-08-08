@@ -1,3 +1,3 @@
-export { fakePromise } from './fakePromise';
-export { keyByPromises } from './keyByPromises';
-export { wrapWithPromise } from './wrapWithPromise';
+export { fake } from './fake';
+export { aggregate } from './aggregate';
+export { wrap } from './wrap';

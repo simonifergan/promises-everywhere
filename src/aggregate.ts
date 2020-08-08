@@ -1,10 +1,10 @@
-import CallbackFunctionType from './Types/CallbackFunction.type';
+type CallbackFunctionType = (...args: any[]) => Promise<any>;
 
 interface KeyByPromise {
-  [key: string]: any;
+  [key: string]: Promise<any>;
 }
 
-export async function keyByPromises(
+export async function aggregate(
   keyByArgs: object,
   clbck: CallbackFunctionType
 ): Promise<object> {
@@ -26,4 +26,4 @@ export async function keyByPromises(
   });
 }
 
-export default keyByPromises;
+export default aggregate;

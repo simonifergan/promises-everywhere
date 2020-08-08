@@ -1,8 +1,8 @@
-import { keyByPromises, fakePromise } from '../src';
+import { aggregate, fake } from '../src';
 
 describe('keyByPromises function', () => {
   const cbkFunction = (value: any): Promise<any> => {
-    return fakePromise({
+    return fake({
       timeout: 1,
       response: {
         value,
@@ -16,7 +16,7 @@ describe('keyByPromises function', () => {
       promiseTwo: 'sendMeToo',
     };
 
-    const keyByPromisesResult = await keyByPromises(keyByValue, cbkFunction);
+    const keyByPromisesResult = await aggregate(keyByValue, cbkFunction);
     expect(keyByPromisesResult).toEqual({
       promiseOne: {
         value: 'sendMe',

@@ -1,13 +1,13 @@
-import fakePromise from '../src/fakePromise';
+import { fake } from '../src/fake';
 
-describe('fakePromise function', () => {
+describe('fake function', () => {
   it('should return a resolved promise with a boolean true as value', async () => {
-    await expect(fakePromise({ timeout: 1 })).resolves.toBeTruthy;
+    await expect(fake({ timeout: 1 })).resolves.toBeTruthy;
   });
 
   it('should return a resolved promise with a custom response value', async () => {
     await expect(
-      fakePromise({
+      fake({
         timeout: 1,
         response: { a: 1, b: 2 },
       })
@@ -16,7 +16,7 @@ describe('fakePromise function', () => {
 
   it('should return a rejected promise with boolean false as value', async done => {
     try {
-      await fakePromise({ timeout: 1, reject: true });
+      await fake({ timeout: 1, reject: true });
     } catch (e) {
       expect(e).toBeFalsy;
       done();
@@ -28,7 +28,7 @@ describe('fakePromise function', () => {
     const response = new Error(responseMessage);
 
     try {
-      await fakePromise({
+      await fake({
         timeout: 1,
         reject: true,
         response,
@@ -42,7 +42,7 @@ describe('fakePromise function', () => {
   it('should be invoked with the default timeout', async () => {
     jest.useFakeTimers();
 
-    fakePromise();
+    fake();
 
     jest.advanceTimersByTime(210);
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 200);
@@ -52,7 +52,7 @@ describe('fakePromise function', () => {
     jest.useFakeTimers();
     const timeout = 2500;
 
-    fakePromise({
+    fake({
       timeout,
     });
 

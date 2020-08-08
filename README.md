@@ -1,4 +1,4 @@
-# Promises, Promises Everywhere
+# Promises, Promises Everywhere [![npm version](https://img.shields.io/badge/npm-v0.2.0-blue.svg)](https://www.npmjs.com/package/promises-everywhere)
 
 A utility library that is all about JavaScript Promises!
 
@@ -12,7 +12,7 @@ I am always fascinated with things you can manipulate by using Promises. However
 
 A method that mimics an async function behavior. It takes an options configuration object as parameter, and returns either a resolved, or reject, promise.
 
-```ts
+```typescript
 interface Config {
   reject?: boolean;
   timeout?: number;
@@ -22,7 +22,7 @@ interface Config {
 
 Usage:
 
-```js
+```javascript
 fake({
   timeout: 1500, // in Milliseconds, default timeout is 200
   response: { a: 1, b: 2 }, // Can be whatever you want it to be.
@@ -30,10 +30,10 @@ fake({
 });
 
 // with async/await
-async function DoSomething() {
-    const myPromiseResponse = await fake({
-        response: 'Got it'}
-    });
+async function doSomething() {
+  const myPromiseResponse = await fake({
+    response: 'Got it',
+  });
 }
 ```
 

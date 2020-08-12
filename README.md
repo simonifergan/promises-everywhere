@@ -72,25 +72,24 @@ async function DoSomething() {
 
 ### wrap
 
-A method that accepts a callback function, and wraps it with a Promise so it can be used within any async/await function closure.
+A method that accepts a callback base function, and wraps it with a Promise so it can be used within any async/await function closure.
 
 Usage:
 
 ```js
-const savePost = (method, body) => {
-  return fetch('/api/some-path', {
+const savePostCallbackBase = (method, body, callback) => {
+  fetch('/api/some-path', {
     method,
     body,
-  }).then(res => res.json());
+  })
+    .then(res => callback(null, res.json()))
+    .catch(err => callback(err));
 };
 
 async function DoSomething(blogPost) {
-  const saveBlogPost = wrap(savePost);
+  const saveBlogPost = wrap(savePostCallbackBase);
 
-  const savedBlogPost = await saveBlogPost(
-    blogPost.id ? 'PUT' : 'POST',
-    blogPost
-  );
+  const savedBlogPost = await savePostCallbackBase('POST', blogPost);
 
   return savedBlogPost;
 }

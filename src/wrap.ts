@@ -1,14 +1,22 @@
-type CallbackFunctionType = (...args: any[]) => any;
 type AsyncFunctionType = (...args: any[]) => Promise<any>;
 
-export function wrap(cbkFunction: CallbackFunctionType): AsyncFunctionType {
-  return (...args: any[]): Promise<any> => {
-    return new Promise((res, rej) => {
+export function wrap(func: Function): AsyncFunctionType {
+  return function(...args: any[]) {
+    return new Promise((resolve, reject) => {
+      const callbackBaseFunctionParams = [
+        ...args,
+        (err: Error, ...cbArgs: any[]) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(...cbArgs);
+          }
+        },
+      ];
       try {
-        const cbkFunctionResult = cbkFunction.apply(null, args);
-        res(cbkFunctionResult);
+        func.apply(null, callbackBaseFunctionParams);
       } catch (e) {
-        rej(e);
+        reject(e);
       }
     });
   };
